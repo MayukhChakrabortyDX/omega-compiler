@@ -1,0 +1,82 @@
+<div @if={ check(condition) } @if:series="one">
+
+    The condition is true. Note that condition argument can be a scoped variable, or next
+    priority is the model data fields.
+
+    If none of them is matched, we then declare it invalid.
+
+</div>
+
+<div @if={ somethingElse }>
+
+    This if will override the statement, so we can do some conditional gymnastics lol.
+    Generally a node is removed and replaced by a comment to make sure we don't have
+    to do some extra work.
+
+</div>
+
+<div @elif={ yesPlease } @if:series="one">
+
+    Some middle ground condition.
+
+</div>
+
+<div @else @if:series="one">
+
+    Otherwise some different condition is going to take over. This just
+    means that the { ` @if={ check(condition) } ` } was false.
+
+    Note that string interpolations are not available for `` string types.
+
+</div>
+
+This will bind the value of the input using a binding mechanism as defined by
+our controler.
+
+<input @bind:value={ binder } @on:input={ setInputs } />
+{ binder }
+
+{ callMethod() } yes we can call methods
+{ callMethod( name ) } we can even call methods with arguments defined in the model
+{ callMethod( scoped ) } or using scoped.
+
+<ul @for={ [each, index] of todos }>
+    <li @on:click={ () => deleteTodo(index) }>{ index + 1 }: { each }</li>
+</ul>
+
+Using something even more useful: Components
+
+<Counter initial={ 10 } />
+
+We can even do that from the model using { `@init={ createCounter }` } where
+we can create:
+
+{`
+
+    class Model {
+
+        createCounter() {
+            return new Counter({ initial: 10 })
+        }
+
+    }
+
+`}
+
+And then simply use <Counter @init={ createCounter } /> to create it.
+
+Or you can create artificial spaces { " " } like these using braces, because strings
+are not trimmed in omegajs.
+
+Or you could trim them: { " ".trim() } and that's it.
+
+I mean connectives are really great! But can we also use distributed component systems? and also treat
+scripts as nodes?
+
+Well I cannot say I can treat them as nodes.
+
+While this process is really really useful, we also need to look
+for some other stuff, like lazy loaded components and so on!
+
+And BTW, you can use webcomponents, or use LitJS to author WebCs without any issues at all,
+because at the end of the day, they all do use just simple components.
